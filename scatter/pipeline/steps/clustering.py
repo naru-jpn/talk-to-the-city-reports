@@ -3,7 +3,8 @@
 import pandas as pd
 import numpy as np
 from importlib import import_module
-
+import stopwordsiso as stopwords_ja
+from janome.tokenizer import Tokenizer
 
 def clustering(config):
     dataset = config['output_dir']
@@ -51,8 +52,16 @@ def cluster_embeddings(
     )
     hdbscan_model = HDBSCAN(min_cluster_size=min_cluster_size)
 
-    stop = stopwords.words("english")
-    vectorizer_model = CountVectorizer(stop_words=stop)
+    ja = Tokenizer(wakati=True)
+    tokenize_ja = lambda text: list(ja.tokenize(text))
+    stop = list(stopwords_ja.stopwords("ja"))
+    vectorizer_model = CountVectorizer(
+        tokenizer=tokenize_ja,
+        token_pattern=None,
+        stop_words=stop,
+        ngram_range=(1, 2),
+        min_df=1,
+    )
     topic_model = BERTopic(
         umap_model=umap_model,
         hdbscan_model=hdbscan_model,
