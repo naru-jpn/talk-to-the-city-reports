@@ -29,7 +29,9 @@ def overview(config):
         input += takeaways.loc[id]['takeaways'] + '\n\n'
 
     llm = ChatOpenAI(model_name=model, temperature=0.0)
-    response = llm(messages=messages(prompt, input)).content.strip()
+    llm_input = messages(prompt, input)
+    response = llm(messages=llm_input).content.strip()
+    print('input: ',input,'\nresponse:\n',response)
 
     with open(path, 'w') as file:
         file.write(response)
