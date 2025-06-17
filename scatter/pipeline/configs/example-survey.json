@@ -13,5 +13,8 @@
   "labelling": {
     "prompt_file": "survey"
   },
+  "takeaways": {
+    "prompt_file": "survey"
+  },
   "intro": "This AI-generated report relies on data from a Polis consultation run by the Recursive Public team."
 }
