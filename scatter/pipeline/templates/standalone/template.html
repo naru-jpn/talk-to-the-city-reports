@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <style>
+        {{styles}}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- ヘッダー -->
+        <header id="header">
+            <h1>{{title}}</h1>
+            <p class="question">{{question}}</p>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main id="main">
+            <!-- 散布図エリア -->
+            <div id="visualization-container">
+                <div id="scatter-wrapper">
+                    <svg id="scatter-plot"></svg>
+                    <div id="controls">
+                        <button id="reset-zoom">ズームリセット</button>
+                    </div>
+                </div>
+                
+                <!-- ツールチップ -->
+                <div id="tooltip" class="tooltip" style="display: none;">
+                    <div class="tooltip-content"></div>
+                </div>
+            </div>
+
+            <!-- サイドバー -->
+            <aside id="sidebar">
+                <div class="sidebar-section">
+                    <h2>概要</h2>
+                    <div id="overview" class="overview-content">{{overview}}</div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h2>クラスタ一覧</h2>
+                    <div id="cluster-list"></div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- D3.js v7 from CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <script>
+        // データの埋め込み
+        const REPORT_DATA = {{data}};
+        
+        // アプリケーションコード
+        {{app_code}}
+    </script>
+</body>
+</html>

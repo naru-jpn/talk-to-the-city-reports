@@ -1,0 +1,261 @@
+/* リセットと基本スタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+}
+
+/* ヘッダー */
+#header {
+    background-color: #fff;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.question {
+    font-size: 16px;
+    color: #666;
+}
+
+/* メインレイアウト */
+#main {
+    display: flex;
+    height: calc(100vh - 100px);
+    overflow: hidden;
+}
+
+/* 可視化コンテナ */
+#visualization-container {
+    flex: 1;
+    padding: 20px;
+    position: relative;
+}
+
+#scatter-wrapper {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#scatter-plot {
+    width: 100%;
+    height: calc(100% - 40px);
+    cursor: grab;
+}
+
+#scatter-plot.dragging {
+    cursor: grabbing;
+}
+
+/* コントロール */
+#controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+#reset-zoom {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#reset-zoom:hover {
+    background-color: #0056b3;
+}
+
+/* 散布図要素 */
+.dot {
+    stroke: #fff;
+    stroke-width: 1px;
+    cursor: pointer;
+}
+
+.dot-hitarea {
+    pointer-events: all;
+}
+
+.cluster-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+    fill: #333;
+    text-shadow: 0 0 3px #fff, 0 0 3px #fff;
+}
+
+/* ツールチップ */
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    max-width: 300px;
+    pointer-events: none;
+    z-index: 1000;
+    line-height: 1.4;
+}
+
+.tooltip-content {
+    word-wrap: break-word;
+}
+
+.tooltip-label {
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+/* サイドバー */
+#sidebar {
+    width: 350px;
+    background-color: #fff;
+    padding: 20px;
+    overflow-y: auto;
+    border-left: 1px solid #e0e0e0;
+}
+
+.sidebar-section {
+    margin-bottom: 30px;
+}
+
+.sidebar-section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* 概要 */
+.overview-content {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #666;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+/* クラスタリスト */
+.cluster-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cluster-item:hover {
+    background-color: #f8f9fa;
+    border-color: #007bff;
+}
+
+.cluster-item.active {
+    background-color: #e7f3ff;
+    border-color: #007bff;
+}
+
+.cluster-color {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.cluster-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.cluster-takeaway {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+}
+
+
+/* 詳細ダイアログ */
+.detail-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 2000;
+}
+
+.detail-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1999;
+}
+
+.detail-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.detail-close:hover {
+    color: #333;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    #main {
+        flex-direction: column;
+    }
+    
+    #sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #e0e0e0;
+    }
+    
+    #visualization-container {
+        height: 60vh;
+    }
+}
