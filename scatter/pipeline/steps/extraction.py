@@ -10,7 +10,7 @@ import concurrent.futures
 def extraction(config):
     dataset = config['output_dir']
     path = f"outputs/{dataset}/args.csv"
-    comments = pd.read_csv(f"inputs/{config['input']}.csv")
+    comments = pd.read_csv(f"inputs/{config['input']}.csv", keep_default_na=False)
 
     model = config['extraction']['model']
     prompt = config['extraction']['prompt']
@@ -44,8 +44,13 @@ def extract_batch(batch, prompt, model, workers):
 
 
 def extract_arguments(input, prompt, model, retries=3):
+    if not input:
+        print("Skip extract for (not input).")
+        return []
     llm = ChatOpenAI(model_name=model, temperature=0.0)
-    response = llm(messages=messages(prompt, input)).content.strip()
+    llm_input = messages(prompt, input)
+    response = llm(messages=llm_input).content.strip()
+    print('input: ',input,'\nresponse:\n',response)
     try:
         obj = json.loads(response)
         # LLM sometimes returns valid JSON string

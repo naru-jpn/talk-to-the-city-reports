@@ -10,6 +10,7 @@ pipeline/inputs/*
 pipeline/configs/*
 !pipeline/configs/example-polis.json
 !pipeline/configs/example-videos.json
+!pipeline/configs/example-survey.json
 
 pipeline/outputs/*
 

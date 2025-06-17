@@ -161,7 +161,7 @@ def initialization(sysargv):
 
     # set default LLM model
     if not 'model' in config:
-        config['model'] = 'gpt-3.5-turbo'
+        config['model'] = 'gpt-4.1-nano'
 
     # prepare configs for each jobs
     for step_spec in specs:
